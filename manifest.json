@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Coolors Color Contrast Checker",
+  "version": "1.0",
+  "permissions": ["activeTab", "scripting", "storage"],
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "action": {
+    "default_popup": "public/popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://coolors.co/palette/"],
+      "js": ["src/contentScript.js"]
+    }
+  ],
+  "icons": {
+    "48": "public/icons/icon48.png",
+    "128": "public/icons/icon128.png"
+  }
+}
