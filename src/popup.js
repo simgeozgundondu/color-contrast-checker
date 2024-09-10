@@ -28,7 +28,19 @@ document.addEventListener('DOMContentLoaded', () => {
             resultsDiv.innerHTML = results.map(result => {
                 const textColor1 = getTextColorForBackground(result.color1);
                 const textColor2 = getTextColorForBackground(result.color2);
-                
+                const contrastRatio = parseFloat(result.ratio);
+    
+                // Calculate number of full and empty stars
+                const maxStars = 5;
+                const fullStars = Math.max(0, Math.min(Math.floor(contrastRatio / 1.5), maxStars));
+                const emptyStars = maxStars - fullStars;
+    
+                // Build the star rating with Font Awesome icons
+                const stars = `
+                    ${'<i class="fas fa-star full-star"></i>'.repeat(fullStars)}
+                    ${'<i class="far fa-star empty-star"></i>'.repeat(emptyStars)}
+                `;
+    
                 return `
                     <div class="result-item">
                         <p class="result-text">
@@ -40,16 +52,21 @@ document.addEventListener('DOMContentLoaded', () => {
                             </span>
                             <br>
                             <p class="contrast-status ${result.compliant ? 'pass' : 'fail'}">
-                                
-                                ${result.compliant ? 'Excellent Contrast' : 'Bad Contrast'}
+                                ${result.compliant ? 'Excellent Contrast': 'Bad Contrast!'}
+                                <br>
+                                <span class="stars">${stars}</span>
                             </p>
                         </p>
                     </div>
-
                 `;
             }).join('');
         }
     }
+    
+    
+    
+    
+    
     
     
 

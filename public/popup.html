@@ -6,14 +6,36 @@
     <title>Color Contrast Checker</title>
     <link rel="stylesheet" href="../src/styles/popup.css">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     
 </head>
 <body>
     <div id="colorChecker" class="color-checker">
         <h2 class="title">Color Contrast Checker</h2>
-        <button id="checkColorsButton" class="check-button">Check Colors</button>
+        <button id="checkColorsButton" class="blob-btn">
+            Check Colors
+            <span class="blob-btn__inner">
+                <span class="blob-btn__blobs">
+                  <span class="blob-btn__blob"></span>
+                  <span class="blob-btn__blob"></span>
+                  <span class="blob-btn__blob"></span>
+                  <span class="blob-btn__blob"></span>
+                </span>
+              </span>
+        </button>
         <div id="results" class="results"></div>
     </div>
+    <!-- SVG filtre tanımlamaları -->
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <defs>
+          <filter id="goo">
+            <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10"></feGaussianBlur>
+            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 21 -7" result="goo"></feColorMatrix>
+            <feBlend in2="goo" in="SourceGraphic" result="mix"></feBlend>
+          </filter>
+        </defs>
+      </svg>
     <script type="module" src="../src/popup.js" ></script>
 </body>
 </html>
