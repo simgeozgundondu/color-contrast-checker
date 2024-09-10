@@ -14,5 +14,5 @@ export function hexToRgb(hex) {
     const g = (bigint >> 8) & 255;
     const b = bigint & 255;
 
-    return [r / 255, g / 255, b / 255]; 
+    return [r / 255, g / 255, b / 255];
 }

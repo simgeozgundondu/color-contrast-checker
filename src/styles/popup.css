@@ -7,6 +7,15 @@ body {
     align-items: center;
     height: fit-content;
 }
+#errorMessage {
+    width:20rem;
+    font-size: 18px;
+    color: red;
+    text-align: center;
+    padding: 1rem 2rem;
+    margin:1rem
+}
+
 
 .color-checker {
     padding: 1rem;
@@ -24,7 +33,7 @@ body {
     font-weight:400;
     margin-bottom: 1rem;
 }
-/* Genel buton stilini ayarla */
+/* Blob button */
 
 *, *:before, *:after {
     box-sizing: border-box;
@@ -83,6 +92,9 @@ body {
     color: #FFFFFF;
     border-radius: 30px;
   }
+  .blob-btn:hover:before {
+    border:none;
+}
   
   .blob-btn:hover:after {
     transition: all 0.3s;
@@ -123,25 +135,25 @@ body {
   
   .blob-btn__blob:nth-child(1) {
     left: 0%;
-    background: #ffdd57; /* yellow */
+    background: #ffdd57; 
     transition-delay: 0s;
 }
 
 .blob-btn__blob:nth-child(2) {
     left: 25%;
-    background: #6faeff; /* Blue */
+    background: #6faeff; 
     transition-delay: 0.08s;
 }
 
 .blob-btn__blob:nth-child(3) {
     left: 50%;
-    background: #ff6f61; /* red */
+    background: #ff6f61; 
     transition-delay: 0.16s;
 }
 
 .blob-btn__blob:nth-child(4) {
     left: 75%;
-    background: #63e6be; /* Green */
+    background: #63e6be; 
     transition-delay: 0.24s;
 }
 
@@ -195,6 +207,8 @@ svg {
     margin: 0 5px;
     border: 2px solid #bfc0c0;
     position: relative; 
+    transition: transform 0.3s ease; 
+    cursor: pointer;
 }
 
 .color-text {
@@ -206,11 +220,12 @@ svg {
     color: inherit; 
     font-size: 11px;
 }
-
+.color:hover{
+    transform: scale(1.1);
+}
 .color:hover .color-text {
     visibility: visible; 
 }
-
 
 .contrast-value {
     font-size: 12px;
