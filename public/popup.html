@@ -1,20 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contrast Checker</title>
-    <link href="tailwind.css" rel="stylesheet">
+    <title>Color Contrast Checker</title>
+    <link rel="stylesheet" href="../src/styles/popup.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    
 </head>
-
 <body>
-    <div id="colorChecker" class="bg-gray-200 p-4 w-[50rem] m-auto mt-32 max-h-fit rounded-md flex flex-col items-center">
-        <h2 class="text-2xl font-bold mb-4">Color Contrast Checker</h2>
-        <div id="results" class="mt-4"></div>
+    <div id="colorChecker" class="color-checker">
+        <h2 class="title">Color Contrast Checker</h2>
+        <button id="checkColorsButton" class="check-button">Check Colors</button>
+        <div id="results" class="results"></div>
     </div>
-
-    <script type="module" src="../src/popup.js"></script>
+    <script type="module" src="../src/popup.js" ></script>
 </body>
-
 </html>

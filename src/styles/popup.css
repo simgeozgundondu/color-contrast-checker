@@ -1,0 +1,120 @@
+body {
+    font-family: "Quicksand", sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+}
+
+.color-checker {
+    padding: 1rem;
+    width: 20rem;
+    margin: 0 auto;
+    max-height: fit-content;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight:400;
+    margin-bottom: 1rem;
+}
+
+.check-button {
+    background-color: #3b82f6;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.check-button:hover {
+    background-color: #2563eb;
+}
+
+.results {
+    margin-top: 1rem;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.result-item {
+    padding: 5px;
+    margin:5px 0;
+    width: 150px; 
+    background-color: white;
+    border-radius: 0.375rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+}
+
+.result-item p{
+    margin:4px;
+}
+
+.result-text {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #4a5568; 
+}
+
+.color {
+    display: inline-block;
+    width: 45px; 
+    height: 45px; 
+    border-radius: 50%;
+    margin: 0 5px;
+    border: 2px solid #bfc0c0;
+    position: relative; 
+}
+
+.color-text {
+    visibility: hidden; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    color: inherit; 
+    font-size: 11px;
+}
+
+.color:hover .color-text {
+    visibility: visible; 
+}
+
+
+.contrast-value {
+    font-size: 12px;
+    text-align: center;
+}
+
+
+.contrast-status {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+
+.pass {
+    color: #4caf50; 
+}
+
+.fail {
+    color: #f44336;
+}
+
+

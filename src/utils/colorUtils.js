@@ -1,9 +1,18 @@
-export function hexToRgb(hex){
-    let r=0, g=0,b=0;
-    if(hex.length=== 7){
-        r =parseInt(hex.slice(1,3), 16);
-        g=parseInt(hex.slice(3,5),16);
-        b= parseInt(hex.slice(5,7),16)
+export function hexToRgb(hex) {
+    hex = hex.replace(/^#/, '');
+
+    if (hex.length === 3) {
+        hex = hex.split('').map(char => char + char).join('');
     }
-    return[r/255, g/255, b/255];
+
+    if (hex.length !== 6) {
+        throw new Error('Geçersiz hex kodu');
+    }
+
+    const bigint = parseInt(hex, 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
+
+    return [r / 255, g / 255, b / 255]; 
 }

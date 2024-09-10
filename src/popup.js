@@ -1,30 +1,57 @@
 import { ContrastChecker } from './components/ContrastChecker.js';
-
+import { hexToRgb } from './utils/colorUtils.js';
+import { luminance} from './utils/wcagUtils.js';
 document.addEventListener('DOMContentLoaded', () => {
-    chrome.storage.local.get('hexColors', (result) => {
-        const hexColors = result.hexColors || [];
-        if (hexColors.length) {
-            const checker = new ContrastChecker(hexColors);
-            const results = checker.getContrastResults();
-            displayResults(results);
-        } else {
-            document.getElementById('results').innerHTML = '<p class="text-red-600">No colors found. Please make sure to extract colors from the Coolors page.</p>';
-        }
-    });
+
+    function checkColors() {
+        document.getElementById('checkColorsButton').style.display="none";
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            chrome.tabs.sendMessage(tabs[0].id, { action: 'getColors' }, (response) => {
+                if (response && response.colors) {
+                    const checker = new ContrastChecker(response.colors);
+                    const results = checker.getContrastResults();
+                    displayResults(results);
+                }
+            });
+        });
+    }
+
+    function getTextColorForBackground(hexColor) {
+        const [r, g, b] = hexToRgb(hexColor);
+        const luminanceValue = luminance(r, g, b);
+        return luminanceValue > 0.5 ? '#000000' : '#FFFFFF'; 
+    }
 
     function displayResults(results) {
-        const resultDiv = document.getElementById('results');
-        resultDiv.innerHTML = results.map(result => `
-            <div class="flex flex-col items-center justify-center p-4 my-2 w-64 bg-white rounded-lg shadow-md">
-                <p class="text-lg font-semibold text-gray-800">
-                    <span class="text-blue-500">${result.color1}</span> -
-                    <span class="text-blue-500">${result.color2}</span><br>
-                    <p class="text-center">Contrast Value: <span class="font-bold">${result.ratio}</span></p>
-                </p>
-                <p class="text-md font-bold ${result.compliant ? 'text-green-600' : 'text-red-600'}">
-                    ${result.compliant ? 'Pass' : 'Fail'}
-                </p>
-            </div>
-        `).join('');
+        const resultsDiv = document.getElementById('results');
+        if (resultsDiv) {
+            resultsDiv.innerHTML = results.map(result => {
+                const textColor1 = getTextColorForBackground(result.color1);
+                const textColor2 = getTextColorForBackground(result.color2);
+                
+                return `
+                    <div class="result-item">
+                        <p class="result-text">
+                            <span class="color" style="background-color: #${result.color1};">
+                                <span class="color-text" style="color: ${textColor1};">#${result.color1}</span>
+                            </span>
+                            <span class="color" style="background-color: #${result.color2};">
+                                <span class="color-text" style="color: ${textColor2};">#${result.color2}</span>
+                            </span>
+                            <br>
+                            <p class="contrast-status ${result.compliant ? 'pass' : 'fail'}">
+                                
+                                ${result.compliant ? 'Excellent Contrast' : 'Bad Contrast'}
+                            </p>
+                        </p>
+                    </div>
+
+                `;
+            }).join('');
+        }
     }
+    
+    
+
+    document.getElementById('checkColorsButton').addEventListener('click', checkColors);
 });
