@@ -7,15 +7,24 @@ body {
     align-items: center;
     height: fit-content;
 }
-#errorMessage {
+.error-message {
     width:20rem;
     font-size: 18px;
-    color: red;
+    color: #da1e37;
+    background: #fbc3bc;
     text-align: center;
     padding: 1rem 2rem;
-    margin:1rem
+    margin:1rem;
+    border-radius:1rem
 }
 
+.error-message img{
+  position:absolute;
+  top:30px;
+  left:25px;
+  width:8%;
+  margin:2px
+}
 
 .color-checker {
     padding: 1rem;

@@ -1,9 +1,10 @@
 {
   "manifest_version": 3,
   "name": "Coolors Color Contrast Checker",
-  "version": "1.0",
+  "version": "3.0",
   "permissions": [
     "activeTab",
+    "tabs",
     "storage"
   ],
   "action": {
@@ -21,7 +22,6 @@
   ],
   
   "icons": {
-    "48": "public/icons/icon48.png",
-    "128": "public/icons/icon128.png"
+    "48": "public/icons/icon48.png"
   }
 }

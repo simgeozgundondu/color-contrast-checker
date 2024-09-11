@@ -7,21 +7,42 @@ document.addEventListener('DOMContentLoaded', () => {
     function checkColors() {
         document.getElementById('checkColorsButton').style.display = "none";
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-            chrome.tabs.sendMessage(tabs[0].id, { action: 'getColors' }, (response) => {
-                if (response && response.colors) {
-                    const checker = new ContrastChecker(response.colors);
-                    const results = checker.getContrastResults();
-                    displayResults(results);
-                } else {
-                    const errorMessageDiv = document.getElementById('errorMessage');
-                    const colorChecker = document.getElementById('colorChecker');
-                    colorChecker.style.display = 'none';
-                    errorMessageDiv.style.display = 'block';
-                    errorMessageDiv.textContent = 'Please make sure you are displaying the one color palette!!!';
-                }
-            });
+            const currentTab = tabs[0];
+            const url = currentTab.url;
+        
+            // Don't perform transactions on sites other than Coolors
+            if (url && url.includes("coolors.co/")) {
+                chrome.tabs.sendMessage(currentTab.id, { action: 'getColors' }, (response) => {
+                    if (chrome.runtime.lastError) {
+                        displayError('Please make sure you are displaying the one color palette!!!');
+                        return;
+                    }
+                    if (response && response.colors) {
+                        const checker = new ContrastChecker(response.colors);
+                        const results = checker.getContrastResults();
+                        displayResults(results);
+                    }
+                });
+            } else {
+                displayError('This feature only works on Coolors palette pages!!!.');
+            }
         });
     }
+    function displayError(message) {
+        const colorChecker = document.getElementById('colorChecker');
+        colorChecker.style.display = 'none';
+    
+        const errorMessageDiv = document.getElementById('errorMessage');
+        errorMessageDiv.style.display = 'block';
+        errorMessageDiv.innerHTML = '';
+        
+        const alertImg = document.createElement('img');
+        alertImg.src = chrome.runtime.getURL('../public/icons/alert.png');
+        alertImg.alt = 'alert'
+        errorMessageDiv.appendChild(alertImg);
+        errorMessageDiv.appendChild(document.createTextNode(message));
+    }
+    
 
     function getTextColorForBackground(hexColor) {
         const [r, g, b] = hexToRgb(hexColor);
