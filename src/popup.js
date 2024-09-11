@@ -89,6 +89,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-
     document.getElementById('checkColorsButton').addEventListener('click', checkColors);
 });

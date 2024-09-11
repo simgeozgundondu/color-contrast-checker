@@ -6,7 +6,7 @@ export function hexToRgb(hex) {
     }
 
     if (hex.length !== 6) {
-        throw new Error('Geçersiz hex kodu');
+        throw new Error('Invalid hex code');
     }
 
     const bigint = parseInt(hex, 16);

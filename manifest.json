@@ -8,7 +8,10 @@
     "storage"
   ],
   "action": {
-    "default_popup": "public/popup.html"
+    "default_popup": "public/popup.html",
+    "default_icon": {
+      "48": "public/icons/icon48.png"
+    }
   },
   "content_scripts": [
     {
@@ -20,7 +23,6 @@
       ]
     }
   ],
-  
   "icons": {
     "48": "public/icons/icon48.png"
   }
