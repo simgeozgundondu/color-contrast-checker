@@ -1,6 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Coolors Color Contrast Checker",
+  "description": "This extension checks color contrasts on Coolors palette pages.",
   "version": "3.0",
   "permissions": [
     "activeTab",

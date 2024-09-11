@@ -7,6 +7,13 @@ body {
     align-items: center;
     height: fit-content;
 }
+
+*, *:before, *:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 .error-message {
     width:20rem;
     font-size: 18px;
@@ -43,12 +50,6 @@ body {
     margin-bottom: 1rem;
 }
 /* Blob button */
-
-*, *:before, *:after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
   
   .buttons {
     margin-top: 50px;
