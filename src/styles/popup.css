@@ -13,6 +13,23 @@ body {
   margin: 0;
   padding: 0;
 }
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-o {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url('../../public/icons/icon48.png');
+  background-size: cover;
+  border-radius: 50%;
+  margin: 0 5px;
+}
 
 .error-message {
     width:20rem;
@@ -37,7 +54,7 @@ body {
     padding: 1rem;
     width: 21rem;
     margin: 0 auto;
-    max-height: fit-content;
+    max-height: 300px;
     border-radius: 30px;
     display: flex;
     flex-direction: column;
@@ -177,93 +194,151 @@ svg {
     width: 0;
     height: 0;
 }
+.filter-checkbox {
+  justify-content: center;
+  align-items: center; 
+  gap: 10px; 
+}
+
+.filter-checkbox input {
+  margin: 0;
+}
+
 
 .results {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y:scroll;
+  margin-top:10px;
 }
 
 .result-item {
-    padding: 5px;
-    margin:5px 0;
-    width: 150px; 
-    background-color: white;
-    border-radius: 0.375rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content:center;
-    align-items: center;
+  padding: 10px;
+  margin: 10px 0;
+  width: 100%; 
+  background-color: white;
+  border-radius: 0.375rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.result-item p{
-    margin:4px;
+.result-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
 }
 
-.result-text {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #4a5568; 
+.result-color {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.result-ratio {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.color-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content:center;
+  margin: 0 10px;
 }
 
 .color {
-    display: inline-block;
-    width: 50px; 
-    height: 50px; 
-    border-radius: 50%;
-    margin: 0 5px;
-    border: 2px solid #bfc0c0;
-    position: relative; 
-    transition: transform 0.3s ease; 
-    cursor: pointer;
+  display: inline-block;
+  width: 50px; 
+  height: 50px; 
+  border-radius: 50%;
+  margin-bottom: 5px;
+  border: 2px solid #bfc0c0;
+  position: relative;
+  transition: transform 0.3s ease; 
+  cursor: pointer;
+}
+
+.color:hover {
+  transform: scale(1.1);
+}
+
+.color-text-hover {
+  visibility: hidden; 
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 11px;
+  color: inherit; 
+}
+
+.color:hover .color-text-hover {
+  visibility: visible; 
 }
 
 .color-text {
-    visibility: hidden; 
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); 
-    color: inherit; 
-    font-size: 11px;
+  font-size: 12px;
+  color: black; 
 }
-.color:hover{
-    transform: scale(1.1);
+
+.checkmark {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  color: #70e000;
+  transition: opacity 0.5s ease;
 }
-.color:hover .color-text {
-    visibility: visible; 
+
+.color.copied .color-text-hover {
+  visibility: hidden;
+}
+
+.color.copied .checkmark {
+  display: block;
+  opacity:1;
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 50px; 
+  height: 50px; 
+}
+
+
+.contrast-ratio {
+  text-align: center;
+  padding:5px;
+  border-radius: 0.375rem;
+}
+
+.result-examples{
+  display:flex;
+  flex-direction:row;
+  justify-content:space-around;
+  margin:3px 0;
+}
+.result-example {
+  margin: 4px 0;
+  padding: 5px;
+  border-radius: 0.375rem;
+}
+
+.result-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: white; 
+  margin:3px;
 }
 
 .contrast-value {
-    font-size: 12px;
-    text-align: center;
+  font-size: 12px;
+  text-align: center;
 }
 
 
-.contrast-status {
-    font-size: 12px;
-    font-weight: bold;
-    text-align: center;
-    margin: 0.5rem 0;
-}
-
-.stars {
-    font-size: 1rem; 
-    color: gold; 
-    display: inline-block;
-    margin-top: 0.5rem;
-    border: none
-}
-
-.pass {
-    color: #4caf50; 
-}
-
-.fail {
-    color: #f44336;
-}
 
 

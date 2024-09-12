@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function checkColors() {
         document.getElementById('checkColorsButton').style.display = "none";
+        document.querySelector('.filter-checkbox').style.display= "flex";
+        
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
             const currentTab = tabs[0];
             const url = currentTab.url;
@@ -28,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
     function displayError(message) {
         const colorChecker = document.getElementById('colorChecker');
         colorChecker.style.display = 'none';
@@ -43,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
         errorMessageDiv.appendChild(document.createTextNode(message));
     }
     
-
     function getTextColorForBackground(hexColor) {
         const [r, g, b] = hexToRgb(hexColor);
         const luminanceValue = luminance(r, g, b);
@@ -52,41 +54,88 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function displayResults(results) {
         const resultsDiv = document.getElementById('results');
+
         if (resultsDiv) {
-            resultsDiv.innerHTML = results.map(result => {
-                const textColor1 = getTextColorForBackground(result.color1);
-                const textColor2 = getTextColorForBackground(result.color2);
-                const contrastRatio = parseFloat(result.ratio);
+            resultsDiv.innerHTML = results
+                .map(result => {
+                    const textColor1 = getTextColorForBackground(result.color1);
+                    const textColor2 = getTextColorForBackground(result.color2);
+                    const ratioBackgroundColor = result.compliant ? '#00A806' : '#C51A00';
+    
+                    return `
+                        <div class="result-item" data-compliant="${result.compliant}">
+                            <div class="result-content">
+                                <div class="result-color">
+                                    <div class="color-container">
+                                        <span class="color" style="background-color: #${result.color1};" data-color="${result.color1}">
+                                            <span class="color-text-hover" style="color: ${textColor1};">copy</span>
+                                            <span class="checkmark"><i class="fas fa-check"></i></span>
+                                        </span>
+                                        <span class="color-text">#${result.color1}</span>    
+                                    </div>
+                                    <div class="color-container">
+                                        <span class="color" style="background-color: #${result.color2};" data-color="${result.color2}">
+                                            <span class="color-text-hover" style="color: ${textColor2};">copy</span>
+                                            <span class="checkmark"><i class="fas fa-check"></i></span>
+                                        </span>
+                                        <span class="color-text">#${result.color2}</span>    
+                                    </div>
+                                </div>
+    
+                                <div class="result-ratio">
+                                    <div class="result-examples">
+                                        <div class="result-example" style="background-color:#${result.color1}" ">
+                                            <p style="color:#${result.color2}">Lorem</p>
+                                        </div>
+                                        <div class="result-example" style="background-color:#${result.color2}" >
+                                            <p style="color:#${result.color1}">Lorem</p>
+                                        </div>
+                                    </div>
+                                    <p class="result-text">
+                                        <span class="contrast-ratio" style="background-color: ${ratioBackgroundColor}">
+                                            Contrast ratio: <span style="font-weight:bold">${result.ratio}<span/>
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
 
-                const maxStars = 5;
-                const fullStars = Math.max(0, Math.min(Math.floor(contrastRatio / 1.5), maxStars));
-                const emptyStars = maxStars - fullStars;
-
-                const stars = `
-                    ${'<i class="fas fa-star full-star"></i>'.repeat(fullStars)}
-                    ${'<i class="far fa-star empty-star"></i>'.repeat(emptyStars)}
-                `;
-
-                return `
-                    <div class="result-item">
-                        <p class="result-text">
-                            <span class="color" style="background-color: #${result.color1};">
-                                <span class="color-text" style="color: ${textColor1};">#${result.color1}</span>
-                            </span>
-                            <span class="color" style="background-color: #${result.color2};">
-                                <span class="color-text" style="color: ${textColor2};">#${result.color2}</span>
-                            </span>
-                            <br>
-                            <p class="contrast-status ${result.compliant ? 'pass' : 'fail'}">
-                                ${result.compliant ? '🚀Excellent Contrast' : 'Bad Contrast!!'}
-                                <br>
-                                <span class="stars">${stars}</span>
-                            </p>
-                        </p>
-                    </div>
-                `;
-            }).join('');
+             // Add click event listeners to color spans
+             document.querySelectorAll('.color').forEach(colorSpan => {
+                colorSpan.addEventListener('click', () => {
+                    const colorCode = colorSpan.getAttribute('data-color');
+                    navigator.clipboard.writeText(`${colorCode}`).then(() => {
+                        const checkmark = colorSpan.querySelector('.checkmark');
+                        if (checkmark) {
+                            colorSpan.classList.add('copied');
+                            checkmark.style.display = 'block';
+                            setTimeout(() => {
+                                checkmark.style.display = 'none';
+                                colorSpan.classList.remove('copied');
+                            }, 2000); 
+                        }
+                    }).catch(err => {
+                        console.error('Failed to copy text: ', err);
+                    });
+                });
+            });
+            
+            document.getElementById('showCompliant').addEventListener('change', () => {
+                filterResults();
+            });
         }
+    }
+
+    function filterResults() {
+        const showCompliant = document.getElementById('showCompliant').checked;
+        const results = document.querySelectorAll('.result-item');
+
+        results.forEach(result => {
+            const isCompliant = result.getAttribute('data-compliant') === 'true';
+            result.style.display = showCompliant && !isCompliant ? 'none' : '';
+        });
     }
 
     document.getElementById('checkColorsButton').addEventListener('click', checkColors);

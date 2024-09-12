@@ -16,7 +16,9 @@
     <div id="errorMessage" class="error-message" style="display: none"></div>
 
     <div id="colorChecker" class="color-checker">
-        <h2 class="title">Color Contrast Checker</h2>
+        <h2 class="title">
+            C<span class="icon-o"></span>LORBOW
+        </h2>
         <button id="checkColorsButton" class="blob-btn">
             Check Colors
             <span class="blob-btn__inner">
@@ -28,8 +30,16 @@
                 </span>
             </span>
         </button>
+
+        <!-- Checkbox for filtering results -->
+        <div class="filter-checkbox" style="display: none;">
+            <input type="checkbox" id="showCompliant" />
+            <label for="showCompliant">Show only compliant results</label>
+        </div>
         <div id="results" class="results"></div>
+
     </div>
+
     <!-- SVG filter -->
     <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
         <defs>
