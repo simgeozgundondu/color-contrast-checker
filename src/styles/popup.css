@@ -309,6 +309,15 @@ svg {
   font-size: 16px;
   color: #70e000;
   transition: opacity 0.5s ease;
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 50px; 
+  height: 50px; 
+}
+.checkmark i{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .color.copied .color-text-hover {
@@ -318,9 +327,6 @@ svg {
 .color.copied .checkmark {
   display: block;
   opacity:1;
-  background-color: rgba(255, 255, 255, 0.5);
-  width: 50px; 
-  height: 50px; 
 }
 
 

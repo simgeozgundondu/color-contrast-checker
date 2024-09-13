@@ -68,14 +68,14 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <div class="result-color">
                                     <div class="color-container">
                                         <span class="color" style="background-color: #${result.color1};" data-color="${result.color1}">
-                                            <span class="color-text-hover" style="color: ${textColor1};">copy</span>
+                                            <span class="color-text-hover" style="color: ${textColor1};"><i class="fa-regular fa-copy"></i></span>
                                             <span class="checkmark"><i class="fas fa-check"></i></span>
                                         </span>
                                         <span class="color-text">#${result.color1}</span>    
                                     </div>
                                     <div class="color-container">
                                         <span class="color" style="background-color: #${result.color2};" data-color="${result.color2}">
-                                            <span class="color-text-hover" style="color: ${textColor2};">copy</span>
+                                            <span class="color-text-hover" style="color: ${textColor2};"><i class="fa-regular fa-copy"></i></span>
                                             <span class="checkmark"><i class="fas fa-check"></i></span>
                                         </span>
                                         <span class="color-text">#${result.color2}</span>    
