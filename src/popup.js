@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     </div>
                                     <div class="color-container">
                                         <span class="color" style="background-color: #${result.color2};" data-color="${result.color2}">
-                                            <span class="color-text-hover" style="color: ${textColor2};"><i class="fa-regular fa-copy"></i></span>
+                                            <span class="color-text-hover" style="color: ${textColor2};"><i class="fa-regular fa-copy fa-lg"></i></span>
                                             <span class="checkmark"><i class="fas fa-check"></i></span>
                                         </span>
                                         <span class="color-text">#${result.color2}</span>    
