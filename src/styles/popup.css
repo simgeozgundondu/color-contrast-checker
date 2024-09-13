@@ -13,6 +13,21 @@ body {
   margin: 0;
   padding: 0;
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #63e6be;
+  border-radius: 10px;
+}
+
 .title {
   font-size: 24px;
   font-weight: bold;
@@ -309,12 +324,6 @@ svg {
 }
 
 
-.contrast-ratio {
-  text-align: center;
-  padding:5px;
-  border-radius: 0.375rem;
-}
-
 .result-examples{
   display:flex;
   flex-direction:row;
@@ -331,14 +340,37 @@ svg {
   font-size: 12px;
   font-weight: 600;
   color: white; 
-  margin:3px;
+  margin:3px auto;
 }
-
-.contrast-value {
-  font-size: 12px;
+.contrast-ratio {
   text-align: center;
+  padding:5px;
+  border-radius: 0.375rem;
+}
+.tooltip {
+  position: relative;
+  display: inline-block;
 }
 
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 50px;
+  background-color: #555;
+  color: #fff;
+  font-size:10px;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  top: 90%; 
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
 
-
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
 

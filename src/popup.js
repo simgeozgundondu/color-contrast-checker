@@ -6,12 +6,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function checkColors() {
         document.getElementById('checkColorsButton').style.display = "none";
-        document.querySelector('.filter-checkbox').style.display= "flex";
-        
+        document.querySelector('.filter-checkbox').style.display = "flex";
+
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
             const currentTab = tabs[0];
             const url = currentTab.url;
-        
+
             // Don't perform transactions on sites other than Coolors
             if (url && url.includes("coolors.co/")) {
                 chrome.tabs.sendMessage(currentTab.id, { action: 'getColors' }, (response) => {
@@ -34,18 +34,18 @@ document.addEventListener('DOMContentLoaded', () => {
     function displayError(message) {
         const colorChecker = document.getElementById('colorChecker');
         colorChecker.style.display = 'none';
-    
+
         const errorMessageDiv = document.getElementById('errorMessage');
         errorMessageDiv.style.display = 'block';
         errorMessageDiv.innerHTML = '';
-        
+
         const alertImg = document.createElement('img');
         alertImg.src = chrome.runtime.getURL('../public/icons/alert.png');
         alertImg.alt = 'alert'
         errorMessageDiv.appendChild(alertImg);
         errorMessageDiv.appendChild(document.createTextNode(message));
     }
-    
+
     function getTextColorForBackground(hexColor) {
         const [r, g, b] = hexToRgb(hexColor);
         const luminanceValue = luminance(r, g, b);
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const textColor1 = getTextColorForBackground(result.color1);
                     const textColor2 = getTextColorForBackground(result.color2);
                     const ratioBackgroundColor = result.compliant ? '#00A806' : '#C51A00';
-    
+
                     return `
                         <div class="result-item" data-compliant="${result.compliant}">
                             <div class="result-content">
@@ -93,7 +93,11 @@ document.addEventListener('DOMContentLoaded', () => {
                                     </div>
                                     <p class="result-text">
                                         <span class="contrast-ratio" style="background-color: ${ratioBackgroundColor}">
-                                            Contrast ratio: <span style="font-weight:bold">${result.ratio}<span/>
+                                            <span class="tooltip">
+                                                <i class="fa-solid fa-circle-info"></i>
+                                                <span class="tooltiptext">Contrast Ratio</span>
+                                            </span>
+                                            <span style="font-weight:bold">${result.ratio}<span/>
                                         </span>
                                     </p>
                                 </div>
@@ -102,8 +106,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     `;
                 }).join('');
 
-             // Add click event listeners to color spans
-             document.querySelectorAll('.color').forEach(colorSpan => {
+            // Add click event listeners to color spans
+            document.querySelectorAll('.color').forEach(colorSpan => {
                 colorSpan.addEventListener('click', () => {
                     const colorCode = colorSpan.getAttribute('data-color');
                     navigator.clipboard.writeText(`${colorCode}`).then(() => {
@@ -114,14 +118,14 @@ document.addEventListener('DOMContentLoaded', () => {
                             setTimeout(() => {
                                 checkmark.style.display = 'none';
                                 colorSpan.classList.remove('copied');
-                            }, 2000); 
+                            }, 2000);
                         }
                     }).catch(err => {
                         console.error('Failed to copy text: ', err);
                     });
                 });
             });
-            
+
             document.getElementById('showCompliant').addEventListener('change', () => {
                 filterResults();
             });
